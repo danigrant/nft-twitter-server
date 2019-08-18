@@ -1,7 +1,7 @@
 let fetch = require('node-fetch')
 
 async function getNFTs(owner) {
-  let res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${owner}`)
+  let res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${owner}&limit=100`)
   if (res.status === 200) {
     return await res.json()
   } else {
@@ -9,4 +9,4 @@ async function getNFTs(owner) {
   }
 }
 
-module.exports = {getNFTs}
+module.exports = { getNFTs }
