@@ -3,24 +3,22 @@ let fetch = require('node-fetch')
 async function getHumanity(twitterHandle) {
   let query = `
   query {
-    Human(username: "_Sinan_W_") {
+    humans(where: {username: "${twitterHandle}"}) {
       applicant
       username
     }
   }`
 
-  let url = 'https://api.thegraph.com/subgraphs/name/danigrant/humanity-dao'
-
-  let opts = {
+  let res = await fetch('https://api.thegraph.com/subgraphs/name/danigrant/humanity-dao', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query })
-  }
+  })
 
-  let res = await fetch(url, ops)
-  console.log(await res.json());
   if (res.status === 200) {
-    return await res.json()
+    let json = await res.json()
+    console.log(json);
+    return json
   } else {
     return false
   }
